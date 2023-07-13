@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Posts{% endblock title %}
+
+{% block content %}
+<h1>Posts</h1>
+<div class="container">
+    {% for post in posts %}
+    <div class="card mb-2" style="width: 18rem;">
+        <div class="card-body">
+            <h3 class="card-title">{{post.title}}</h3>
+            <h5 class="card-subtitle mb-2 text-body-secondary">{{post.subtitle}}</h5>
+            <p class="card-text">{{post.body|truncatechars:512}}</p>
+            <a href="{% url 'post_detail' post.id %}" class="btn btn-dark">Detail</a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'post_edit' post.id %}" class="btn btn-dark">Edit</a>
+            <a href="{% url 'post_delete' post.id %}" class="btn btn-dark">Delete</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}
